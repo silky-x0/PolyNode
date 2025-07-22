@@ -1,0 +1,70 @@
+version: '3.8'
+services:
+  api-gateway:
+    build: ../../backend/api-gateway
+    ports:
+      - "3001:3001"
+    env_file:
+      - ../../backend/api-gateway/.env
+    volumes:
+      - ../../backend/api-gateway:/app
+    depends_on:
+      - user-service
+      - course-service
+      - payment-service
+      - notification-service
+      - analytics-service
+
+  user-service:
+    build: ../../backend/user-service
+    ports:
+      - "3002:3002"
+    env_file:
+      - ../../backend/user-service/.env
+    volumes:
+      - ../../backend/user-service:/app
+
+  course-service:
+    build: ../../backend/course-service
+    ports:
+      - "3003:3003"
+    env_file:
+      - ../../backend/course-service/.env
+    volumes:
+      - ../../backend/course-service:/app
+
+  payment-service:
+    build: ../../backend/payment-service
+    ports:
+      - "3004:3004"
+    env_file:
+      - ../../backend/payment-service/.env
+    volumes:
+      - ../../backend/payment-service:/app
+
+  notification-service:
+    build: ../../backend/notification-service
+    ports:
+      - "3005:3005"
+    env_file:
+      - ../../backend/notification-service/.env
+    volumes:
+      - ../../backend/notification-service:/app
+
+  analytics-service:
+    build: ../../backend/analytics-service
+    ports:
+      - "3006:3006"
+    env_file:
+      - ../../backend/analytics-service/.env
+    volumes:
+      - ../../backend/analytics-service:/app
+
+  frontend:
+    build: ../../frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../frontend:/app
+    environment:
+      - NODE_ENV=development 
