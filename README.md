@@ -1,77 +1,210 @@
-# PolyNode
+# PolyNode - Microservices Learning Platform
+
 A scalable, full-stack microservices-based learning platform built with Next.js, Node.js, Docker, Redis, and Kubernetes — featuring authentication, course management, payments, analytics, and real-time notifications.
 
----
+## 🏗️ Architecture
 
-## Project Structure
+PolyNode follows a microservices architecture pattern with the following services:
 
-```
-frontend/                # Next.js Frontend Application
-backend/                 # Microservices (API Gateway, User, Course, Payment, Notification, Analytics)
-infrastructure/docker/   # Docker and docker-compose files
-scripts/                 # Automation scripts
-```
+- **API Gateway** (Port 3001) - Central entry point for all API requests
+- **User Service** (Port 3002) - User management and authentication
+- **Course Service** (Port 3003) - Course and content management
+- **Payment Service** (Port 3004) - Payment processing and subscriptions
+- **Notification Service** (Port 3005) - Multi-channel notifications
+- **Analytics Service** (Port 3006) - Data analytics and reporting
+- **Frontend** (Port 3000) - Next.js web application
 
-## Getting Started (Development)
+## 🚀 Quick Start
 
 ### Prerequisites
-- [Node.js 18+](https://nodejs.org/)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
 
-### 1. Install Dependencies
+- Node.js 18+ 
+- Docker and Docker Compose
+- PostgreSQL (for production)
+- Redis (for caching and events)
 
-Install root dependencies (for scripts):
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/silky-x0/PolyNode.git
+   cd PolyNode
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm run install:all
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   # Copy example environment files
+   cp backend/user-service/.env.example backend/user-service/.env
+   cp backend/api-gateway/.env.example backend/api-gateway/.env
+   # ... repeat for other services
+   ```
+
+4. **Start with Docker (Recommended for development)**
+   ```bash
+   npm run docker:up
+   ```
+
+5. **Or start services individually**
+   ```bash
+   npm run dev
+   ```
+
+## 🛠️ Development
+
+### Available Scripts
+
+- `npm run dev` - Start all services in development mode
+- `npm run build` - Build all services
+- `npm run docker:up` - Start all services with Docker
+- `npm run docker:down` - Stop all Docker services
+- `npm run docker:build` - Rebuild Docker images
+
+### Service Development
+
+Each service can be developed independently:
+
 ```bash
-npm install
+# Start only the user service
+npm run dev:user
+
+# Start only the frontend
+npm run dev:frontend
 ```
 
-Install dependencies for each service (example for API Gateway):
+### API Testing
+
+Once services are running, test the API:
+
 ```bash
-cd backend/api-gateway
-npm install
-# Repeat for each backend service and frontend
+# Test API Gateway health
+curl http://localhost:3001/health
+
+# Test User Service
+curl http://localhost:3002/health
+
+# Test API through Gateway
+curl http://localhost:3001/api/users
 ```
 
-### 2. Environment Variables
+## 📁 Project Structure
 
-Copy `.env.example` to `.env` in each service and fill in values as needed:
-```bash
-cp backend/api-gateway/.env.example backend/api-gateway/.env
-# Repeat for each service
+```
+POLYNODE/
+├── backend/                 # Microservices
+│   ├── api-gateway/        # API Gateway Service
+│   ├── user-service/       # User Management Service
+│   ├── course-service/     # Course Management Service
+│   ├── payment-service/    # Payment Processing Service
+│   ├── notification-service/ # Notification Service
+│   ├── analytics-service/  # Analytics Service
+│   └── shared/             # Shared Libraries
+├── frontend/               # Next.js Frontend
+├── infrastructure/         # Infrastructure as Code
+├── docs/                  # Documentation
+└── tests/                 # Test Suites
 ```
 
-### 3. Run All Services with Docker Compose
+## 🔧 Configuration
 
-From the `infrastructure/docker` directory:
+### Environment Variables
+
+Each service requires specific environment variables. See `.env.example` files in each service directory.
+
+Key variables:
+- `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` - Database connection
+- `JWT_SECRET`, `REFRESH_SECRET` - JWT authentication
+- `REDIS_HOST`, `REDIS_PORT` - Redis connection
+- `FRONTEND_URL` - Frontend URL for CORS
+
+### Database Setup
+
+1. **Development**: Use Docker Compose (includes PostgreSQL and Redis)
+2. **Production**: Set up separate PostgreSQL instances for each service
+
+## 🧪 Testing
+
 ```bash
-cd infrastructure/docker
+# Run tests for specific service
+cd backend/user-service && npm test
+
+# Run integration tests
+npm run test:integration
+
+# Run E2E tests
+npm run test:e2e
+```
+
+## 🚢 Deployment
+
+### Docker Deployment
+
+```bash
 # Build and start all services
-docker-compose up --build
+npm run docker:build
+npm run docker:up
 ```
 
-- Frontend: http://localhost:3000
-- API Gateway: http://localhost:3001
-- User Service: http://localhost:3002
-- Course Service: http://localhost:3003
-- Payment Service: http://localhost:3004
-- Notification Service: http://localhost:3005
-- Analytics Service: http://localhost:3006
+### Kubernetes Deployment
 
-### 4. Stopping Services
 ```bash
-docker-compose down
+# Apply Kubernetes manifests
+kubectl apply -f infrastructure/kubernetes/
 ```
 
-## Development (Without Docker)
+### Production Considerations
 
-You can run each service individually for development:
-```bash
-cd backend/api-gateway
-npm run dev
-# Repeat for each service
-```
+- Set `NODE_ENV=production`
+- Use proper SSL certificates
+- Configure monitoring and logging
+- Set up CI/CD pipelines
+- Implement proper backup strategies
 
-## Adding More Services
-- Add a new folder in `backend/`
-- Add a Dockerfile and update `docker-compose.yml`
+## 📊 Monitoring
+
+- **Health Checks**: `/health` endpoint on each service
+- **Service Status**: `/status` endpoint on API Gateway
+- **Logs**: Structured logging across all services
+- **Metrics**: Prometheus metrics collection
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## 📝 License
+
+This project is licensed under the ISC License.
+
+## 🆘 Support
+
+- Create an issue for bugs or feature requests
+- Check the documentation in the `docs/` folder
+- Review the architecture documentation
+
+## 🔄 Development Status
+
+**Current Phase**: Foundation & Core Setup (Phase 1)
+
+**Completed**:
+- ✅ Project structure setup
+- ✅ Basic service separation
+- ✅ TypeScript configuration
+- ✅ Docker setup
+- ✅ Shared types and schemas
+- ✅ API Gateway routing
+- ✅ User service routes
+- ✅ Frontend Next.js setup
+
+**Next Steps**:
+- 🔄 Database connections implementation
+- 🔄 Authentication middleware
+- 🔄 Service integration
+- 🔄 Frontend authentication flow
