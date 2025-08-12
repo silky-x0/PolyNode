@@ -4,7 +4,7 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    role VARCHAR(50) DEFAULT "student",
+    role VARCHAR(50) DEFAULT 'student',
     email_verified BOOLEAN DEFAULT FALSE,
     profile_picture_url VARCHAR(255),
     bio TEXT,
