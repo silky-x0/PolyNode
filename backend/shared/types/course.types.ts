@@ -11,7 +11,7 @@ export interface Course {
     currency: string;
     estimated_hours?: number;
     language: string;
-    thumbnail_url?: number;
+    thumbnail_url?: string;
     preview_video_url?: string;
     status: CourseStatus;
     tag: string[];
@@ -19,13 +19,13 @@ export interface Course {
     what_you_learn: string[];
     created_at: Date;
     updated_at: Date;
-    deleted_at: Date;
+    deleted_at?: Date;
 }
 
 export enum DifficultyLevel {
     BEGINNER = 'beginner',
     INTERMEDIATE = 'intermediate',
-    ADAVANCED = 'advanced'
+    ADVANCED = 'advanced'
 }
 
 export enum CourseStatus {
@@ -45,7 +45,7 @@ export interface CourseModule {
     updated_at: Date;
 }
 
-export interface lesson {
+export interface Lesson {
     id: string;
     module_id: string;
     title: string;
@@ -64,8 +64,8 @@ export interface lesson {
 export enum ContentType {
     VIDEO = 'video',
     TEXT = 'text',
-    QUIZ ='quiz',
-    ASSGINENT = 'assignment'
+    QUIZ = 'quiz',
+    ASSIGNMENT = 'assignment'
 }
 
 export interface CourseEnrollment {
@@ -73,7 +73,7 @@ export interface CourseEnrollment {
     student_id: string;
     course_id: string;
     enrollment_date: Date;
-    completion_date: Date;
+    completion_date?: Date;
     progress_percentage: number;
     last_accessed_at: Date;
     access_expires_at?: Date;

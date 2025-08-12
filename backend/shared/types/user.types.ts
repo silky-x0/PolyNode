@@ -5,7 +5,7 @@ export interface User {
     first_name: string;
     last_name: string;
     role: UserRole;
-    email_verfied: boolean;
+    email_verified: boolean;
     profile_picture_url?: string;
     bio?: string;
     timezone: string;
@@ -53,7 +53,7 @@ export interface UserPreferences {
     email_notifications: boolean;
     push_notifications: boolean;
     marketing_emails: boolean;
-    theme: 'dark' | 'light'
+    theme: 'dark' | 'light';
     notification_settings: Record<string, any>;
     privacy_settings: Record<string, any>;
     created_at: Date;
