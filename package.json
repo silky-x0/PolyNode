@@ -3,23 +3,48 @@
   "version": "1.0.0",
   "description": "A scalable, full-stack microservices-based learning platform built with Next.js, Node.js, Docker, Redis, and Kubernetes — featuring authentication, course management, payments, analytics, and real-time notifications.",
   "main": "index.js",
+  "workspaces": [
+    "backend/*",
+    "frontend"
+  ],
   "directories": {
     "doc": "docs",
     "test": "tests"
   },
   "scripts": {
+    "dev": "concurrently \"npm run dev:gateway\" \"npm run dev:user\" \"npm run dev:course\" \"npm run dev:payment\" \"npm run dev:notification\" \"npm run dev:analytics\" \"npm run dev:frontend\"",
+    "dev:gateway": "cd backend/api-gateway && npm run dev",
+    "dev:user": "cd backend/user-service && npm run dev",
+    "dev:course": "cd backend/course-service && npm run dev",
+    "dev:payment": "cd backend/payment-service && npm run dev",
+    "dev:notification": "cd backend/notification-service && npm run dev",
+    "dev:analytics": "cd backend/analytics-service && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:shared && npm run build:backend && npm run build:frontend",
+    "build:shared": "cd backend/shared && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "docker:up": "cd infrastructure/docker && docker-compose up -d",
+    "docker:down": "cd infrastructure/docker && docker-compose down",
+    "docker:build": "cd infrastructure/docker && docker-compose build",
+    "install:all": "npm install && npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/silky-x0/PolyNode.git"
   },
-  "keywords": [],
+  "keywords": ["microservices", "learning-platform", "nextjs", "nodejs", "docker"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/silky-x0/PolyNode/issues"
   },
-  "homepage": "https://github.com/silky-x0/PolyNode#readme"
+  "homepage": "https://github.com/silky-x0/PolyNode#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
