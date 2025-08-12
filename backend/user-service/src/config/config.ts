@@ -30,6 +30,7 @@ interface Config {
     frontend: {
         url: string;
     };
+    useMockDatabase: boolean;
 }
 
 const requiredEnvVars = [
@@ -55,11 +56,11 @@ export const config: Config = {
         env: process.env.NODE_ENV || 'development'
     },
     database: {
-        host: process.env.DB_HOST!,
+        host: process.env.DB_HOST || 'localhost',
         port: parseInt(process.env.DB_PORT || '5432'),
-        name: process.env.DB_NAME!,
-        user: process.env.DB_USER!,
-        password: process.env.DB_PASSWORD!,
+        name: process.env.DB_NAME || 'mockdb',
+        user: process.env.DB_USER || 'mockuser',
+        password: process.env.DB_PASSWORD || 'mockpassword',
         ssl: process.env.NODE_ENV === 'production',
         maxConnection: parseInt(process.env.DB_MAX_CONNECTIONS || '20')
     },
@@ -70,11 +71,12 @@ export const config: Config = {
         refreshTokenExpiry: '7d'
     },
     redis: {
-        host: process.env.JWT_SECRET!,
+        host: process.env.REDIS_HOST!,
         port: parseInt(process.env.REDIS_PORT || '6379'),
         password: process.env.REDIS_PASSWORD
     },
     frontend: {
         url: process.env.FRONTEND_URL || 'http://localhost:3000'
-    }
+    },
+    useMockDatabase: process.env.NODE_ENV === 'development' // for mock db
 };
