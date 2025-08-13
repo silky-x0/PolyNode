@@ -38,7 +38,7 @@ export default function Home() {
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
               Join thousands of learners worldwide and unlock your potential with our cutting-edge 
-              microservices-based learning platform. From coding to design, we've got you covered.
+              microservices-based learning platform. From coding to design, we&apos;ve got you covered.
             </p>
           </div>
           
