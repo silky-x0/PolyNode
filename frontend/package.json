@@ -7,9 +7,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "npm run lint && npm run build",
-    "test:ci": "npm run lint && npm run build"
+    "lint": "next lint --fix",
+    "lint:check": "next lint",
+    "test": "npm run lint:check && npm run build",
+    "test:ci": "npm run lint:check && npm run build"
   },
   "keywords": ["polynode", "frontend", "nextjs", "learning-platform"],
   "author": "",
