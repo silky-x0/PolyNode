@@ -7,8 +7,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "next lint --fix",
+    "lint:check": "next lint",
+    "test": "npm run lint:check && npm run build",
+    "test:ci": "npm run lint:check && npm run build"
   },
   "keywords": ["polynode", "frontend", "nextjs", "learning-platform"],
   "author": "",
