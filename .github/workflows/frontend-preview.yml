@@ -31,6 +31,9 @@ jobs:
       working-directory: ./frontend
       run: npm run build
       
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+      
     - name: Deploy Preview to Vercel
       working-directory: ./frontend
       env:
