@@ -32,7 +32,7 @@ export default function Home() {
           <div className="mb-8">
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
               Master New Skills with
-              <span className="block bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="block py-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 PolyNode
               </span>
             </h1>
@@ -219,7 +219,7 @@ export default function Home() {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 PolyNode. All rights reserved. Built with modern microservices architecture.</p>
+            <p>&copy; 2025 PolyNode. All rights reserved. Built with modern microservices architecture.</p>
           </div>
         </div>
       </footer>
