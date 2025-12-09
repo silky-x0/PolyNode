@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import { config } from './config/config'
+import { checkConnection } from './database';
 
 
 
@@ -29,15 +30,25 @@ app.use('/api/auth', require('./routes/auth'));   // mounts all routes from auth
 app.use('/api/users', require('./routes/users'));    // mounts all routes from users.ts at the '/api/users' base path
 
 
-app.get('/health', (req: Request, res: Response) => {
+
+
+app.get('/health', async (req: Request, res: Response) => {
+  const dbStatus = await checkConnection();
   res.status(200).json({
     status: 'healthy',
     service: 'user-service',
+    database: dbStatus ? 'connected' : 'disconnected',
     timeStamp: new Date().toISOString()
   })
 });
 
 const PORT = config.server.port
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`User Service listening on port ${PORT}`);
+  const dbConnected = await checkConnection();
+  if (dbConnected) {
+      console.log('Database connected successfully');
+  } else {
+      console.error('Database connection failed');
+  }
 }); 
